@@ -1,0 +1,962 @@
+/* Contrast ratios for these colours are recorded in DEVELOPMENT_LOG.md. */
+:root {
+  --color-bg: #fff8ec;
+  --color-surface: #ffffff;
+  --color-text: #1f2a44;
+  --color-muted: #4a5568;
+  --color-primary: #2557d6;
+  --color-primary-hover: #1b3fa0;
+  --color-selected-bg: #e8f0ff;
+  --color-border: #8a94a6;
+  --color-focus: #c2410c;
+  --color-disabled-bg: #e2e6ee;
+  --color-disabled-text: #5b6475;
+  --color-warning-bg: #fff4d6;
+  --color-warning-text: #92400e;
+
+  --radius: 16px;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --touch-target: 3.5rem;
+
+  font-family:
+    ui-rounded,
+    'SF Pro Rounded',
+    'Segoe UI',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 100%;
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-size: 1.125rem;
+  background: var(--color-bg);
+}
+
+h1 {
+  margin: 0 0 var(--space-2);
+  font-size: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+  line-height: 1.2;
+}
+
+.lead {
+  margin: 0 0 var(--space-3);
+  font-size: 1.25rem;
+  color: var(--color-muted);
+}
+
+:focus-visible {
+  outline: 4px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* Layout */
+
+.site-header {
+  background: var(--color-surface);
+  border-bottom: 4px solid var(--color-primary);
+}
+
+.site-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: var(--space-1) var(--space-2);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-target);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.brand__mark {
+  color: var(--color-primary);
+  letter-spacing: 0.05em;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 var(--space-2);
+  border-radius: 999px;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  background: var(--color-selected-bg);
+}
+
+/* The current page is marked by an underline, not colour alone. */
+.nav-link[aria-current='page'] {
+  background: var(--color-selected-bg);
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.3em;
+}
+
+.page-container {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-2) var(--space-4);
+}
+
+@media (min-width: 48rem) {
+  .site-header__inner {
+    padding: var(--space-1) var(--space-4);
+  }
+
+  .page-container {
+    padding: var(--space-4);
+  }
+}
+
+/* Buttons */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-target);
+  padding: 0 var(--space-3);
+  border: 3px solid var(--color-primary);
+  border-radius: var(--radius);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--color-primary-hover);
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease,
+    background-color 0.15s ease;
+}
+
+.button--primary {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+.button--primary:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.button--secondary {
+  background: var(--color-surface);
+  color: var(--color-primary);
+}
+
+.button--secondary:hover {
+  background: var(--color-selected-bg);
+}
+
+.button:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+
+.button--large {
+  min-height: 4rem;
+  padding: 0 var(--space-4);
+  font-size: 1.375rem;
+}
+
+.button:disabled {
+  background: var(--color-disabled-bg);
+  border-color: var(--color-disabled-bg);
+  color: var(--color-disabled-text);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Home */
+
+.home__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+@media (max-width: 30rem) {
+  .home__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* Practice setup */
+
+.setup-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+}
+
+.setup-group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.setup-group legend {
+  padding: 0;
+  margin-bottom: var(--space-1);
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.setup-group__hint {
+  margin: 0 0 var(--space-2);
+  color: var(--color-muted);
+}
+
+.choice-grid {
+  display: grid;
+  /* min(): a tile is never wider than the screen, even with large text. */
+  grid-template-columns: repeat(auto-fill, minmax(min(16rem, 100%), 1fr));
+  gap: var(--space-2);
+}
+
+@media (max-width: 30rem) {
+  .choice-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* With large text, a tile's words move under its symbol instead of being
+     squeezed into a narrow column. */
+  .choice__body {
+    flex-wrap: wrap;
+    gap: var(--space-1);
+  }
+
+  .choice__text {
+    flex: 1 1 6rem;
+  }
+}
+
+.choice {
+  position: relative;
+  display: block;
+}
+
+/* The native input covers the whole tile so it stays clickable,
+   focusable, and announced, while the tile provides the visuals. */
+.choice__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.choice__body {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 100%;
+  min-height: 4.5rem;
+  padding: var(--space-2);
+  border: 3px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.choice:hover .choice__body {
+  border-color: var(--color-primary);
+}
+
+.choice__input:focus-visible + .choice__body {
+  outline: 4px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.choice__input:checked + .choice__body {
+  border-color: var(--color-primary);
+  border-width: 4px;
+  background: var(--color-selected-bg);
+}
+
+.choice__symbol {
+  flex: none;
+  min-width: 2.5rem;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+  color: var(--color-primary);
+}
+
+.choice__text {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.choice__label {
+  font-weight: 700;
+}
+
+.choice__description {
+  font-size: 1rem;
+  color: var(--color-muted);
+}
+
+/* The check mark shows selection by shape as well as colour. */
+.choice__check {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--color-border);
+  border-radius: 8px;
+  font-weight: 800;
+  color: transparent;
+}
+
+.choice__input[type='radio'] + .choice__body .choice__check {
+  border-radius: 50%;
+}
+
+.choice__input:checked + .choice__body .choice__check {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+.setup-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.setup-form__status:empty {
+  display: none;
+}
+
+.setup-form__status {
+  margin: 0;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius);
+  background: var(--color-warning-bg);
+  color: var(--color-warning-text);
+  font-weight: 700;
+}
+
+@media (max-width: 30rem) {
+  .setup-form__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* Shared */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Practice page */
+
+.practice {
+  display: grid;
+  /* Lets the card and progress bar shrink with large text. */
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: var(--space-3);
+}
+
+/* Question card */
+
+.card {
+  --flip-duration: 0.6s;
+  width: 100%;
+  max-width: 36rem;
+  perspective: 1400px;
+  /* Optional short transition as each new card appears (Task 29). */
+  animation: card-enter 0.25s ease-out;
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+.card--static {
+  animation: none;
+}
+
+/* Both faces share one grid cell, so the card is as tall as the taller
+   face and the two sides line up exactly. */
+.card__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  transform-style: preserve-3d;
+  transition: transform var(--flip-duration) ease-in-out;
+}
+
+.card--flipped .card__inner {
+  transform: rotateY(180deg);
+}
+
+.card__face {
+  grid-area: 1 / 1;
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-2);
+  border: 4px solid var(--color-primary);
+  border-radius: 24px;
+  background: var(--color-surface);
+  box-shadow: 0 8px 0 var(--color-selected-bg);
+  text-align: center;
+  /* Never show a face from behind, so text can't appear mirrored. */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* The face being hidden waits until the card is edge-on (half the flip).
+   The face being shown becomes visible at once, so it can take focus; its
+   back-facing side stays invisible until it turns past edge-on. */
+.card__face[inert] {
+  visibility: hidden;
+  transition: visibility 0s linear calc(var(--flip-duration) / 2);
+}
+
+.card__face--back {
+  /* Centre the shorter back content within the shared height. */
+  align-content: center;
+  transform: rotateY(180deg);
+}
+
+/* Animations off (setting) or reduced motion: no turning, no delay. The
+   faces simply swap. */
+.card--static .card__inner,
+.card--static .card__face[inert] {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card__inner,
+  .card__face[inert] {
+    transition: none;
+  }
+}
+
+.card__progress {
+  margin: 0;
+  font-weight: 700;
+  color: var(--color-muted);
+}
+
+.card__question {
+  margin: 0;
+  font-size: clamp(2.5rem, 1.75rem + 4vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.card__question:focus {
+  outline: none;
+}
+
+.card__question:focus-visible {
+  outline: 4px solid var(--color-focus);
+  outline-offset: 6px;
+}
+
+.card__your-answer {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.card__hint {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.card__actions {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.card__actions--result {
+  grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
+  justify-items: stretch;
+  gap: var(--space-2);
+}
+
+.answer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+  width: 100%;
+}
+
+@media (max-width: 22rem) {
+  .answer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.answer-choice {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 4.5rem;
+  padding: var(--space-1) var(--space-3);
+  border: 3px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 2rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.answer-choice:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  background: var(--color-selected-bg);
+}
+
+.answer-choice:active:not(:disabled) {
+  transform: translateY(2px);
+}
+
+.answer-choice[aria-pressed='true'] {
+  border-color: var(--color-primary-hover);
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+.answer-choice:disabled {
+  cursor: default;
+}
+
+.answer-choice__check {
+  position: absolute;
+  left: var(--space-2);
+  font-size: 1.5rem;
+}
+
+/* Session progress */
+
+.session-progress {
+  display: grid;
+  gap: 0.25rem;
+  width: 100%;
+  max-width: 36rem;
+}
+
+.session-progress__label {
+  font-weight: 700;
+  color: var(--color-muted);
+}
+
+.session-progress__bar {
+  width: 100%;
+  height: 1rem;
+  appearance: none;
+  border: 2px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+.session-progress__bar::-webkit-progress-bar {
+  background: var(--color-surface);
+}
+
+.session-progress__bar::-webkit-progress-value {
+  background: var(--color-primary);
+}
+
+.session-progress__bar::-moz-progress-bar {
+  background: var(--color-primary);
+}
+
+/* Session finished */
+
+.session-finished h1:focus {
+  outline: none;
+}
+
+.session-totals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-3);
+}
+
+.session-totals div {
+  min-width: 10rem;
+  padding: var(--space-2);
+  border: 3px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.session-totals dt {
+  font-weight: 700;
+  color: var(--color-muted);
+}
+
+.session-totals dd {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.session-totals .session-totals__item--text dd {
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+.session-finished__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.session-finished__note {
+  margin: var(--space-2) 0 0;
+  color: var(--color-muted);
+}
+
+/* Storage warning */
+
+.storage-warning {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-2);
+  margin-bottom: var(--space-3);
+  padding: var(--space-2);
+  border: 3px solid var(--color-warning-text);
+  border-radius: var(--radius);
+  background: var(--color-warning-bg);
+  color: var(--color-warning-text);
+  font-weight: 700;
+}
+
+.storage-warning p {
+  flex: 1 1 18rem;
+  margin: 0;
+}
+
+/* Confirm dialog */
+
+.confirm-dialog {
+  width: min(28rem, calc(100% - 2rem));
+  padding: var(--space-3);
+  border: 4px solid var(--color-primary);
+  border-radius: 24px;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.confirm-dialog::backdrop {
+  background: rgb(31 42 68 / 0.6);
+}
+
+.confirm-dialog h2 {
+  margin: 0 0 var(--space-1);
+}
+
+.confirm-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+/* Statistics */
+
+.statistics section {
+  margin-bottom: var(--space-4);
+}
+
+.statistics h2 {
+  margin: 0 0 var(--space-2);
+}
+
+.statistics__status:empty,
+.settings__message:empty {
+  display: none;
+}
+
+.stat-totals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  gap: var(--space-1);
+  margin: 0;
+}
+
+.stat-totals dt {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-muted);
+}
+
+.stat-totals dd {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stat-card {
+  padding: var(--space-2);
+  border: 3px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.stat-card h3 {
+  margin: 0 0 var(--space-1);
+  font-size: 1.25rem;
+}
+
+.stat-card__detail {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.empty-state {
+  margin: 0 0 var(--space-3);
+  color: var(--color-muted);
+}
+
+@media (max-width: 30rem) {
+  .stat-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Settings */
+
+.settings__label {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.settings__select {
+  min-width: 6rem;
+  min-height: var(--touch-target);
+  padding: 0 var(--space-2);
+  border: 3px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 700;
+}
+
+.settings__message {
+  margin: 0;
+  color: var(--color-warning-text);
+  font-weight: 700;
+}
+
+.danger-zone {
+  padding: var(--space-2);
+  border: 3px solid var(--color-warning-text);
+  border-radius: var(--radius);
+  background: var(--color-warning-bg);
+}
+
+.danger-zone h2 {
+  margin: 0 0 var(--space-1);
+}
+
+.danger-zone p {
+  margin: 0 0 var(--space-2);
+}
+
+.card__explanation {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-muted);
+}
+
+/* Phase 15–17 */
+
+.answer-choice__key {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-muted);
+}
+
+.answer-choice[aria-pressed='true'] .answer-choice__key {
+  color: #ffffff;
+}
+
+.session-status:empty {
+  display: none;
+}
+
+.session-status {
+  margin: 0;
+  min-height: 1.75rem;
+  text-align: center;
+}
+
+.feedback {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.fact-list {
+  margin: 0 0 var(--space-3);
+  padding-left: var(--space-3);
+}
+
+.fact-list li {
+  margin-bottom: 0.25rem;
+}
+
+.fact-list__fact,
+.stat-card__fact {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-card__fact {
+  margin: 0 0 var(--space-1);
+  font-size: 1.25rem;
+}
+
+.mastered-mistakes {
+  margin-top: var(--space-3);
+}
+
+.mastered-mistakes summary {
+  min-height: var(--touch-target);
+  display: flex;
+  align-items: center;
+  font-weight: 800;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.mastered-mistakes summary:focus-visible {
+  outline: 4px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.statistics h3 {
+  margin: var(--space-2) 0 var(--space-1);
+}
+
+/* Phones: a smaller brand and tighter links keep the menu on one row. */
+@media (max-width: 30rem) {
+  .brand {
+    font-size: 1.25rem;
+  }
+
+  .nav-list {
+    gap: 0;
+  }
+
+  .nav-link {
+    padding: 0 0.6rem;
+    font-size: 1rem;
+  }
+}
+
+/* Reduced motion: no transitions at all. (A tiny duration such as 0.01ms
+   would still make inherited visibility changes transition, which stops the
+   revealed card side from taking focus in the frame it appears.) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

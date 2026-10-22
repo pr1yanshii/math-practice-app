@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+# Single-page app: serve index.html for every route, so refreshing or
+# opening /statistics, /practice/setup, etc. directly works.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

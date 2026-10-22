@@ -1,0 +1,5 @@
+dist
+coverage
+package-lock.json
+# Instructor and project documents are kept exactly as written.
+*.md
