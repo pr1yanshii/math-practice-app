@@ -671,3 +671,21 @@ No assignment file exists in the folder; `specification.md` and `REQUIREMENTS.md
 - **Mutation check:** 10 bugs. 9 were caught straight away; "snapshot count check dropped" survived until the snapshot-validation tests were added, and is now caught.
 - **Chrome (dev server):** real reloads before picking, after picking, after flipping (back still showing, focus on the answer, 0 stored) and after 2 answers ("2 of 5", Question 3, 2 stored). The Back button showed the in-app dialog, and Keep Practicing stayed. Leave went to Statistics with 2 attempts and an ended session, snapshot cleared, statistics 2/1/1/50%. Refresh on the summary: no duplicates (7 attempts, 2 sessions). Back from the summary had no dialog. A direct `/practice/session` showed the notice. With a damaged snapshot and settings, practice still started and another site's key was kept. No native dialogs, no console errors.
 - typecheck, lint, format check and build pass.
+
+---
+
+## 2026-10-21 — Phases 20–22: Testing, Performance, Release (Tasks 79–89)
+
+Stopped early at the user's request because of the submission deadline. Only verified items are ticked; **9 tasks remain unchecked** (listed below).
+
+**Done and verified**
+- **Tests (79–81):** 487 passing. A full 10-question addition session and a mixed-operation session were added; the other listed unit, component and integration cases were already covered.
+- **Rendering (83):** measured with React Profiler. A regular "I Got It Right" re-rendered every app-context consumer (5 extra renders per 5 answers), because patterns were reloaded needlessly. Fixed to 0, with a regression test.
+- **Large histories (84):** in Chrome, 10,000 attempts took 28 ms per saved answer and 31 ms to open Statistics, but used ~5 MB, near the browser quota (≈ 19k attempts). Detailed attempts are now capped at 5,000, and older ones become exact archived totals in `mathPractice.statistics`. The archive rolls back if trimming fails, and tests show totals identical before and after.
+- **Loading (85):** the bundle was 370 kB (114 kB gzip). Statistics and Settings are now lazy routes (1.25 kB + 1.96 kB gzip, about 3% saved). **Bug found:** React Router 8 lazy route objects can't be shared between routers (a second router got a 404), so `createRoutes()` builds fresh routes per router; regression test added. The Vite logo favicon (9.5 kB) was replaced with a 334-byte app icon.
+- **Privacy (86):** a "Your data" note on Settings; no personal data, ads or trackers; the live site made **no external requests**.
+- **Release (88–89):** build, tests, lint and typecheck pass. `netlify.toml` (build, `dist`, SPA redirect) and README added. No secrets found in the repo. Pushed to https://github.com/pr1yanshii/math-practice-app and deployed to https://math-practice-app-pr1yanshii.netlify.app. The first deploy returned **401 "This site is private"** (Netlify visitor login, `sso_login: true`); it was turned off for this site via the API. Live checks: all routes return 200 including direct deep links, an answer survives a refresh, Statistics loads directly and after a refresh, and the console is clean.
+
+**Not verified (left unchecked)**
+- Screen reader; unused-dependency audit; slow-device throttling; responsive behaviour on the *live* site (verified on the identical local build in Phases 16–17).
+- Safari, Firefox, Edge, and iPad/phone emulators. A Playwright run completed in **Chrome only**; the WebKit (Safari engine) run hung and was stopped at the user's request, so Firefox and the device profiles never ran.
